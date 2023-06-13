@@ -18,7 +18,7 @@ import com.api_seguradora.desafio.database.repository.SeguradoRepository;
 import com.api_seguradora.desafio.service.SeguradoService;
 
 public class SeguradoTest {
-    
+
     @Mock
     private SeguradoRepository seguradoRepository;
 
@@ -42,5 +42,5 @@ public class SeguradoTest {
 
         assertEquals(2, resultado.size());
         verify(seguradoRepository, times(1)).findAll();
-}  
+    }
 }

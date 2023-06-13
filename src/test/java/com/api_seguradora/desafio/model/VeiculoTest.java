@@ -18,7 +18,7 @@ import com.api_seguradora.desafio.database.repository.VeiculoRepository;
 import com.api_seguradora.desafio.service.VeiculoService;
 
 public class VeiculoTest {
-    
+
     @Mock
     private VeiculoRepository veiculoRepository;
 
@@ -42,5 +42,5 @@ public class VeiculoTest {
 
         assertEquals(2, resultado.size());
         verify(veiculoRepository, times(1)).findAll();
-}  
+    }
 }
