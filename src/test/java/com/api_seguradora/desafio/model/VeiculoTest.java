@@ -1,12 +1,14 @@
 package com.api_seguradora.desafio.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,5 +44,20 @@ public class VeiculoTest {
 
         assertEquals(2, resultado.size());
         verify(veiculoRepository, times(1)).findAll();
+    }
+
+    @Test
+    void shouldShowVeiculoById() {
+        String id = "1";
+        Veiculo veiculo = new Veiculo();
+        veiculo.setId(id);
+
+        when(veiculoRepository.findById(id)).thenReturn(Optional.of(veiculo));
+
+        Veiculo resultado = veiculoService.getVeiculoById(id);
+
+        assertNotNull(resultado);
+        assertEquals(id, resultado.getId());
+        verify(veiculoRepository, times(1)).findById(id);
     }
 }
