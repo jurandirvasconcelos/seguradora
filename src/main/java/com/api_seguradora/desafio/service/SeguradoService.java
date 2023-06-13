@@ -2,6 +2,7 @@ package com.api_seguradora.desafio.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api_seguradora.desafio.database.repository.SeguradoRepository;
@@ -19,6 +20,10 @@ public class SeguradoService {
 
     public List<Segurado> listSegurados() {
         return seguradoRepository.findAll();
+    }
+
+    public Segurado getSeguradoById(String id) {
+        return seguradoRepository.findById(id).orElse(null);
     }
 
 }
