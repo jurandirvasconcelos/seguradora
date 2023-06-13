@@ -12,6 +12,11 @@ public class SeguradoService {
 
     private SeguradoRepository seguradoRepository;
 
+    @Autowired
+    public SeguradoService(SeguradoRepository seguradoRepository) {
+        this.seguradoRepository = seguradoRepository;
+    }
+
     public List<Segurado> listSegurados() {
         return seguradoRepository.findAll();
     }
