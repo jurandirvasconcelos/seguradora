@@ -12,4 +12,8 @@ public class VeiculoService {
     public List<Veiculo> listVeiculos() {
         return veiculoRepository.findAll();
     }
+
+    public Veiculo getVeiculoById(String id) {
+        return veiculoRepository.findById(id).orElse(null);
+    }
 }
