@@ -19,7 +19,7 @@ import org.mockito.MockitoAnnotations;
 import com.api_seguradora.desafio.database.repository.SeguradoRepository;
 import com.api_seguradora.desafio.service.SeguradoService;
 
-public class SeguradoTest {
+public class SeguradoServiceTest {
 
     @Mock
     private SeguradoRepository seguradoRepository;
