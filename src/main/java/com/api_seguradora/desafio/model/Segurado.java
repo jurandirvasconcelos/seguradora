@@ -20,4 +20,6 @@ public class Segurado {
 
     private String cpf;
 
+    private String phone;
+
 }
