@@ -37,8 +37,8 @@ class SeguradoControllerTest {
 
     @Test
     void shouldShowAllSegurados() throws Exception {
-        Segurado segurado1 = new Segurado("1", "Luizinho", "12345678900");
-        Segurado segurado2 = new Segurado("2", "Huguinho", "98765432100");
+        Segurado segurado1 = new Segurado("1", "Luizinho", "123.456.789-00", "9875-1111");
+        Segurado segurado2 = new Segurado("2", "Huguinho", "987.654.321-00", "9763-2222");
         List<Segurado> segurados = Arrays.asList(segurado1, segurado2);
 
         when(seguradoService.listSegurados()).thenReturn(segurados);
@@ -50,9 +50,11 @@ class SeguradoControllerTest {
                 .andExpect(jsonPath("$[0].id").value(segurado1.getId()))
                 .andExpect(jsonPath("$[0].name").value(segurado1.getName()))
                 .andExpect(jsonPath("$[0].cpf").value(segurado1.getCpf()))
+                .andExpect(jsonPath("$[0].phone").value(segurado1.getPhone()))
                 .andExpect(jsonPath("$[1].id").value(segurado2.getId()))
                 .andExpect(jsonPath("$[1].name").value(segurado2.getName()))
-                .andExpect(jsonPath("$[1].cpf").value(segurado2.getCpf()));
+                .andExpect(jsonPath("$[1].cpf").value(segurado2.getCpf()))
+                .andExpect(jsonPath("$[1].phone").value(segurado2.getPhone()));
 
         verify(seguradoService, times(1)).listSegurados();
     }
