@@ -26,4 +26,9 @@ public class SeguradoService {
         return seguradoRepository.findById(id).orElse(null);
     }
 
+    public Segurado saveSegurado(Segurado segurado) {
+        return seguradoRepository.save(segurado);
+    }
+
+    
 }
