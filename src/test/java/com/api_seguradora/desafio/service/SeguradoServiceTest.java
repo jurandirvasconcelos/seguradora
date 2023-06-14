@@ -35,8 +35,8 @@ public class SeguradoServiceTest {
     @Test
     void shouldShowAllSegurados() {
         List<Segurado> segurados = new ArrayList<>();
-        segurados.add(new Segurado("1", "Huguinho", "12345678900"));
-        segurados.add(new Segurado("2", "Zezinho", "98765432100"));
+        segurados.add(new Segurado("1", "Huguinho", "12345678900", "9875-1111"));
+        segurados.add(new Segurado("2", "Zezinho", "98765432100", "9763-2222"));
 
         when(seguradoRepository.findAll()).thenReturn(segurados);
 
@@ -59,5 +59,17 @@ public class SeguradoServiceTest {
         assertNotNull(resultado);
         assertEquals(id, resultado.getId());
         verify(seguradoRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void shouldSaveSegurado(){
+        Segurado segurado = new Segurado("1", "Luizinho", "111.222.333-222", "9876-5432");
+
+        when(seguradoRepository.save(segurado)).thenReturn(segurado);
+
+        Segurado resultado = seguradoService.saveSegurado(segurado);
+
+        assertNotNull(resultado);
+        verify(seguradoRepository, times(1)).save(segurado);
     }
 }
