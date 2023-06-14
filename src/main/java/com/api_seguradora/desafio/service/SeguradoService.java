@@ -30,5 +30,13 @@ public class SeguradoService {
         return seguradoRepository.save(segurado);
     }
 
+    public Segurado updateSegurado(String id, Segurado segurado) {
+        if (seguradoRepository.existsById(id)) {
+            segurado.setId(id);
+            return seguradoRepository.save(segurado);
+        }
+        return null;
+    }
+
     
 }
