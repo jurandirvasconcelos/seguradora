@@ -22,8 +22,20 @@ public class SeguradoController {
     }
 
     @GetMapping
-    public List<Segurado> getSegurados() {
-        return seguradoService.listSegurados();
+    public ResponseEntity<List<Segurado>> getSegurados() {
+        List<Segurado> segurados = seguradoService.listSegurados();
+        if (!segurados.isEmpty()) {
+            return ResponseEntity.ok(segurados);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @PostMapping
+    @Transactional
+    public ResponseEntity<Segurado> saveSegurado(@RequestBody Segurado segurado) {
+        Segurado novoSegurado = seguradoService.saveSegurado(segurado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoSegurado);
     }
 
 }
