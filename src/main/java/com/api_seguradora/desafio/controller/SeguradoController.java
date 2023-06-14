@@ -2,12 +2,13 @@ package com.api_seguradora.desafio.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,6 @@ public class SeguradoController {
 
     private final SeguradoService seguradoService;
 
-    @Autowired
     public SeguradoController(SeguradoService seguradoService) {
         this.seguradoService = seguradoService;
     }
@@ -41,6 +41,16 @@ public class SeguradoController {
     public ResponseEntity<Segurado> saveSegurado(@RequestBody Segurado segurado) {
         Segurado novoSegurado = seguradoService.saveSegurado(segurado);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoSegurado);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Segurado> updateSegurado(@PathVariable String id, @RequestBody Segurado segurado) {
+        Segurado seguradoAtualizado = seguradoService.updateSegurado(id, segurado);
+        if (seguradoAtualizado != null) {
+            return ResponseEntity.ok(seguradoAtualizado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
