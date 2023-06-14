@@ -1,5 +1,6 @@
 package com.api_seguradora.desafio.controller;
 
+import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -62,7 +63,7 @@ class SeguradoControllerTest {
     }
 
     @Test
-    public void shouldSaveSegurado() {
+    void shouldSaveSegurado() {
         // Dados de entrada
         Segurado segurado = new Segurado("1", "Zezinho", "123.456.789-00", "9653-1234");
 
@@ -81,6 +82,20 @@ class SeguradoControllerTest {
 
         // Verificar se o método do serviço foi chamado corretamente
         verify(seguradoService, times(1)).saveSegurado(segurado);
+    }
+
+    @Test
+    void shouldUpdateSegurado(){
+        String id = "1";
+        Segurado segurado = new Segurado("1", "Zezinho Primeiro", "123.456.789-00", "9653-1234");
+        Segurado seguradoAtualizado = new Segurado("1", "Zezinho Segundo", "123.456.789-00", "9653-1234");
+
+        when(seguradoService.updateSegurado(id, segurado)).thenReturn(seguradoAtualizado);
+
+        ResponseEntity<Segurado> response = seguradoController.updateSegurado(id, segurado);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(seguradoAtualizado, response.getBody());
     }
 
 }
