@@ -1,20 +1,14 @@
 package com.api_seguradora.desafio.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.api_seguradora.desafio.database.dto.SeguroDTO;
 import com.api_seguradora.desafio.model.Seguro;
 import com.api_seguradora.desafio.service.SeguroService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/seguros")
@@ -26,9 +20,26 @@ public class SeguroController {
         this.seguroService = seguroService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<SeguroDTO>> listarSeguros() {
+        List<SeguroDTO> seguros = seguroService.listarSeguros();
+        return ResponseEntity.ok(seguros);
+    }
+
+    @PostMapping
+    public ResponseEntity<SeguroDTO> cadastrarSeguro(@RequestBody SeguroDTO seguroDTO) {
+        SeguroDTO novoSeguroDTO = seguroService.cadastrarSeguro(seguroDTO);
+
+        if (novoSeguroDTO != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoSeguroDTO);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Seguro> getSeguroById(@PathVariable String id) {
-        Seguro seguro = seguroService.getSeguroById(id);
+    public ResponseEntity<Seguro> obterSeguroPorId(@PathVariable String id) {
+        Seguro seguro = seguroService.obterSeguroPorId(id);
         if (seguro != null) {
             return ResponseEntity.ok(seguro);
         } else {
@@ -36,25 +47,9 @@ public class SeguroController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Seguro>> listSeguros(){
-        List<Seguro> seguros = seguroService.listSeguros();
-        return ResponseEntity.ok(seguros);
-    }
-
-    @PostMapping
-    public ResponseEntity<Seguro> saveSeguro(@RequestBody Seguro seguro) {
-        Seguro novoSeguro = seguroService.saveSeguro(seguro);
-        if (novoSeguro != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoSeguro);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
     @PutMapping("/{id}")
-    public ResponseEntity<Seguro> updateSeguro(@PathVariable String id, @RequestBody Seguro seguro) {
-        Seguro seguroAtualizado = seguroService.updateSeguro(id, seguro);
+    public ResponseEntity<Seguro> atualizarSeguro(@PathVariable String id, @RequestBody Seguro seguro) {
+        Seguro seguroAtualizado = seguroService.atualizarSeguro(id, seguro);
         if (seguroAtualizado != null) {
             return ResponseEntity.ok(seguroAtualizado);
         } else {
@@ -63,8 +58,8 @@ public class SeguroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSeguro(@PathVariable String id) {
-        boolean deletado = seguroService.deleteSeguro(id);
+    public ResponseEntity<Void> deletarSeguro(@PathVariable String id) {
+        boolean deletado = seguroService.deletarSeguro(id);
         if (deletado) {
             return ResponseEntity.noContent().build();
         } else {
