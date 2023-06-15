@@ -2,7 +2,6 @@ package com.api_seguradora.desafio.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api_seguradora.desafio.database.repository.SeguradoRepository;
@@ -13,7 +12,6 @@ public class SeguradoService {
 
     private SeguradoRepository seguradoRepository;
 
-    @Autowired
     public SeguradoService(SeguradoRepository seguradoRepository) {
         this.seguradoRepository = seguradoRepository;
     }
@@ -38,5 +36,12 @@ public class SeguradoService {
         return null;
     }
 
-    
+    public boolean deleteSegurado(String id) {
+        if (seguradoRepository.existsById(id)) {
+            seguradoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }
