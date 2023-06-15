@@ -2,6 +2,7 @@ package com.api_seguradora.desafio.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -62,7 +63,7 @@ public class SeguradoServiceTest {
     }
 
     @Test
-    void shouldSaveSegurado(){
+    void shouldSaveSegurado() {
         Segurado segurado = new Segurado("1", "Luizinho", "111.222.333-222", "9876-5432");
 
         when(seguradoRepository.save(segurado)).thenReturn(segurado);
@@ -72,4 +73,33 @@ public class SeguradoServiceTest {
         assertNotNull(resultado);
         verify(seguradoRepository, times(1)).save(segurado);
     }
+
+    @Test
+    void shouldUpdateSeguradoById() {
+        String id = "1";
+        Segurado segurado = new Segurado("1", "Luizinho", "111.222.333-222", "9876-5432");
+
+        when(seguradoRepository.existsById(id)).thenReturn(true);
+        when(seguradoRepository.save(segurado)).thenReturn(segurado);
+
+        Segurado resultado = seguradoService.updateSegurado(id, segurado);
+
+        assertNotNull(resultado);
+        assertEquals(id, resultado.getId());
+        verify(seguradoRepository, times(1)).existsById(id);
+        verify(seguradoRepository, times(1)).save(segurado);
+    }
+
+    @Test
+    void shouldDeleteSeguradoById() {
+        String id = "1";
+
+        when(seguradoRepository.existsById(id)).thenReturn(true);
+
+        boolean resultado = seguradoService.deleteSegurado(id);
+
+        assertTrue(resultado);
+        verify(seguradoRepository, times(1)).deleteById(id);
+    }
+
 }
