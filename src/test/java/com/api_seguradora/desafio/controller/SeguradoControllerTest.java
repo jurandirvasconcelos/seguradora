@@ -111,4 +111,16 @@ class SeguradoControllerTest {
         assertEquals(seguradoAtualizado, response.getBody());
     }
 
+    @Test
+    void shouldDeleteSeguradoById() {
+        String id = "1";
+
+        when(seguradoService.deleteSegurado(id)).thenReturn(true);
+
+        ResponseEntity<Void> response = seguradoController.deleteSegurado(id);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertEquals(null, response.getBody());
+    }
+
 }
