@@ -36,6 +36,16 @@ public class SeguradoController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Segurado> getSeguradoById(@PathVariable String id) {
+        Segurado segurado = seguradoService.getSeguradoById(id);
+        if (segurado != null) {
+            return ResponseEntity.ok(segurado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<Segurado> saveSegurado(@RequestBody Segurado segurado) {
