@@ -1,6 +1,5 @@
 package com.api_seguradora.desafio.controller;
 
-import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -98,7 +97,7 @@ class SeguradoControllerTest {
     }
 
     @Test
-    void shouldUpdateSegurado(){
+    void shouldUpdateSeguradoById() {
         String id = "1";
         Segurado segurado = new Segurado("1", "Zezinho Primeiro", "123.456.789-00", "9653-1234");
         Segurado seguradoAtualizado = new Segurado("1", "Zezinho Segundo", "123.456.789-00", "9653-1234");
