@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,10 +55,22 @@ public class SeguradoController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public ResponseEntity<Segurado> updateSegurado(@PathVariable String id, @RequestBody Segurado segurado) {
         Segurado seguradoAtualizado = seguradoService.updateSegurado(id, segurado);
         if (seguradoAtualizado != null) {
             return ResponseEntity.ok(seguradoAtualizado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+     @DeleteMapping("/{id}")
+     @Transactional
+    public ResponseEntity<Void> deleteSegurado(@PathVariable String id) {
+        boolean deletado = seguradoService.deleteSegurado(id);
+        if (deletado) {
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
