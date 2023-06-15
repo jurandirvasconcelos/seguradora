@@ -1,5 +1,7 @@
 package com.api_seguradora.desafio.model;
 
+import java.time.LocalDate;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,8 +18,15 @@ public class Seguro {
     @Id
     private String id;
 
-    private Veiculo veiculo;
+    private double preco;
+    private LocalDate dataAdesao;
+    private String seguradoId;
+    private String veiculoId;
 
-    private Segurado segurado;
+    public void setSegurado(Segurado segurado) {
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+    }
 
 }
