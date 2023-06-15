@@ -12,6 +12,10 @@ public class VeiculoService {
 
     private VeiculoRepository veiculoRepository;
 
+    public VeiculoService(VeiculoRepository veiculoRepository) {
+        this.veiculoRepository = veiculoRepository;
+    }
+
     public List<Veiculo> listVeiculos() {
         return veiculoRepository.findAll();
     }
