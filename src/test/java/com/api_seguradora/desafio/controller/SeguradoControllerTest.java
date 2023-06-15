@@ -63,6 +63,19 @@ class SeguradoControllerTest {
     }
 
     @Test
+    void shouldGetSeguradoById() {
+        String id = "1";
+        Segurado segurado = new Segurado("1", "Luizinho", "123.456.789-00", "9875-1111");
+
+        when(seguradoService.getSeguradoById(id)).thenReturn(segurado);
+
+        ResponseEntity<Segurado> response = seguradoController.getSeguradoById(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(segurado, response.getBody());
+    }
+
+    @Test
     void shouldSaveSegurado() {
         // Dados de entrada
         Segurado segurado = new Segurado("1", "Zezinho", "123.456.789-00", "9653-1234");
