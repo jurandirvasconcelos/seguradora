@@ -2,6 +2,7 @@ package com.api_seguradora.desafio.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -59,5 +60,46 @@ public class VeiculoServiceTest {
         assertNotNull(resultado);
         assertEquals(id, resultado.getId());
         verify(veiculoRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void sholudSaveVeiculo() {
+        Veiculo veiculo = new Veiculo("1", "Jeep", "naoSei", "ABC-123");
+
+        when(veiculoRepository.save(veiculo)).thenReturn(veiculo);
+
+        Veiculo resultado = veiculoService.saveVeiculo(veiculo);
+
+        assertNotNull(resultado);
+        verify(veiculoRepository, times(1)).save(veiculo);
+
+    }
+
+    @Test
+    void shouldUpdateVeiculoById() {
+        String id = "1";
+        Veiculo veiculo = new Veiculo("1", "Jeep", "naoSei", "ABC-123");
+
+        when(veiculoRepository.existsById(id)).thenReturn(true);
+        when(veiculoRepository.save(veiculo)).thenReturn(veiculo);
+
+        Veiculo resultado = veiculoService.updateVeiculo(id, veiculo);
+
+        assertNotNull(resultado);
+        assertEquals(id, resultado.getId());
+        verify(veiculoRepository, times(1)).existsById(id);
+        verify(veiculoRepository, times(1)).save(veiculo);
+    }
+
+    @Test
+    void shouldDeleteVeiculoById() {
+        String id = "1";
+
+        when(veiculoRepository.existsById(id)).thenReturn(true);
+
+        boolean resultado = veiculoService.deleteVeiculo(id);
+
+        assertTrue(resultado);
+        verify(veiculoRepository, times(1)).deleteById(id);
     }
 }
