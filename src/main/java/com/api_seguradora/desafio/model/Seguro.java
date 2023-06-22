@@ -18,12 +18,10 @@ public class Seguro {
     @Id
     private String id;
 
-    private String seguradoId;
-
-    private String veiculoId;
-
     private Double preco;
-
     private LocalDate dataAdesao;
+
+    private Segurado segurado;
+    private Veiculo veiculo;
 
 }

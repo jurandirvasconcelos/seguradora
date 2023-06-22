@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.api_seguradora.desafio.database.dto.SeguroDTO;
 import com.api_seguradora.desafio.model.Seguro;
 import com.api_seguradora.desafio.service.SeguroService;
 
@@ -21,20 +20,15 @@ public class SeguroController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SeguroDTO>> listarSeguros() {
-        List<SeguroDTO> seguros = seguroService.listarSeguros();
-        return ResponseEntity.ok(seguros);
+    public ResponseEntity<List<Seguro>> listarSeguros() {
+        List<Seguro> seguro = seguroService.listarSeguros();
+        return ResponseEntity.ok(seguro);
     }
 
     @PostMapping
-    public ResponseEntity<SeguroDTO> cadastrarSeguro(@RequestBody SeguroDTO seguroDTO) {
-        SeguroDTO novoSeguroDTO = seguroService.cadastrarSeguro(seguroDTO);
-
-        if (novoSeguroDTO != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoSeguroDTO);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<Seguro> cadastrarSeguro(@RequestBody Seguro seguro) {
+        Seguro novoSeguro = seguroService.cadastraSeguro(seguro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoSeguro);
     }
 
     @GetMapping("/{id}")
