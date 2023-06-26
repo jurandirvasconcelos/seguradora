@@ -1,6 +1,7 @@
 package com.api_seguradora.desafio.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TypeAlias("Seguro")
 @Document(collection = "seguros")
 public class Seguro {
 
@@ -21,7 +23,7 @@ public class Seguro {
     private Double preco;
     private LocalDate dataAdesao;
 
-    private Segurado segurado;
-    private Veiculo veiculo;
+    private String idSegurado;
+    private String idVeiculo;
 
 }

@@ -16,10 +16,9 @@ public class Veiculo {
     @Id
     private String id;
 
-    private String marca;
-
-    private String modelo;
-
-    private String placa;
+    private String brand;
+    private String model;
+    private String plate;
+    private Integer year;
 
 }

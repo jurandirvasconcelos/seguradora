@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api_seguradora.desafio.database.dto.VeiculoDTO;
 import com.api_seguradora.desafio.database.repository.VeiculoRepository;
 import com.api_seguradora.desafio.model.Veiculo;
 
@@ -47,10 +46,11 @@ public class VeiculoService {
         return false;
     }
 
-    public VeiculoDTO obterVeiculoDTO(String id) {
+    public Veiculo obterVeiculoDTO(String id) {
         Veiculo veiculo = veiculoRepository.findById(id).orElse(null);
         if (veiculo != null) {
-            return new VeiculoDTO(veiculo.getId(), veiculo.getMarca(), veiculo.getPlaca());
+            return new Veiculo(veiculo.getId(), veiculo.getBrand(), veiculo.getModel(), veiculo.getPlate(),
+                    veiculo.getYear());
         }
         return null;
     }

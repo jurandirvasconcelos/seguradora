@@ -10,16 +10,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "segurado")
+@Document(collection = "segurados")
 public class Segurado {
 
     @Id
     private String id;
 
     private String name;
-
     private String cpf;
-
     private String phone;
 
+    private Endereco address;
 }

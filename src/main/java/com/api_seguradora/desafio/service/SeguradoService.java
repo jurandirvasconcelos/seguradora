@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api_seguradora.desafio.database.dto.SeguradoDTO;
 import com.api_seguradora.desafio.database.repository.SeguradoRepository;
 import com.api_seguradora.desafio.model.Segurado;
 
@@ -47,10 +46,11 @@ public class SeguradoService {
         return false;
     }
 
-    public SeguradoDTO obterSeguradoDTO(String id) {
+    public Segurado obterSeguradoDTO(String id) {
         Segurado segurado = seguradoRepository.findById(id).orElse(null);
         if (segurado != null) {
-            return new SeguradoDTO(segurado.getId(), segurado.getName(), segurado.getCpf());
+            return new Segurado(segurado.getId(), segurado.getName(), segurado.getCpf(), segurado.getPhone(),
+                    segurado.getAddress());
         }
         return null;
     }

@@ -4,26 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api_seguradora.desafio.database.repository.SeguroRepository;
-import com.api_seguradora.desafio.model.Segurado;
 import com.api_seguradora.desafio.model.Seguro;
-import com.api_seguradora.desafio.model.Veiculo;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SeguroService {
 
     private final SeguroRepository seguroRepository;
-    private final SeguradoService seguradoService;
-    private final VeiculoService veiculoService;
 
     @Autowired
-    public SeguroService(SeguroRepository seguroRepository, SeguradoService seguradoService,
-            VeiculoService veiculoService) {
+    public SeguroService(SeguroRepository seguroRepository) {
         this.seguroRepository = seguroRepository;
-        this.seguradoService = seguradoService;
-        this.veiculoService = veiculoService;
     }
 
     public Seguro cadastraSeguro(Seguro seguro) {
