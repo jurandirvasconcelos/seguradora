@@ -36,8 +36,8 @@ public class VeiculoServiceTest {
     @Test
     void shouldShowAllVeiculos() {
         List<Veiculo> veiculos = new ArrayList<>();
-        veiculos.add(new Veiculo("1", "Ford", "KA", "ABC-1234"));
-        veiculos.add(new Veiculo("2", "Honda", "Civic", "def-9876"));
+        veiculos.add(new Veiculo("1", "Ford", "KA", "ABC-1234", 1800));
+        veiculos.add(new Veiculo("2", "Honda", "Civic", "def-9876", 2030));
 
         when(veiculoRepository.findAll()).thenReturn(veiculos);
 
@@ -64,7 +64,7 @@ public class VeiculoServiceTest {
 
     @Test
     void sholudSaveVeiculo() {
-        Veiculo veiculo = new Veiculo("1", "Jeep", "naoSei", "ABC-123");
+        Veiculo veiculo = new Veiculo("1", "Jeep", "naoSei", "ABC-123", 2022);
 
         when(veiculoRepository.save(veiculo)).thenReturn(veiculo);
 
@@ -78,7 +78,7 @@ public class VeiculoServiceTest {
     @Test
     void shouldUpdateVeiculoById() {
         String id = "1";
-        Veiculo veiculo = new Veiculo("1", "Jeep", "naoSei", "ABC-123");
+        Veiculo veiculo = new Veiculo("1", "Jeep", "naoSei", "ABC-123", 2023);
 
         when(veiculoRepository.existsById(id)).thenReturn(true);
         when(veiculoRepository.save(veiculo)).thenReturn(veiculo);

@@ -39,8 +39,8 @@ class VeiculoControllerTest {
 
     @Test
     void shouldShowAllVeiculos() throws Exception {
-        Veiculo veiculo1 = new Veiculo("1", "Ford", "Ka", "ABC-111");
-        Veiculo veiculo2 = new Veiculo("2", "BMW", "NãoSei", "EFG-222");
+        Veiculo veiculo1 = new Veiculo("1", "Ford", "Ka", "ABC-111", 2023);
+        Veiculo veiculo2 = new Veiculo("2", "BMW", "NãoSei", "EFG-222", 2020);
         List<Veiculo> veiculos = Arrays.asList(veiculo1, veiculo2);
 
         when(veiculoService.listVeiculos()).thenReturn(veiculos);
@@ -50,13 +50,15 @@ class VeiculoControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()").value(veiculos.size()))
                 .andExpect(jsonPath("$[0].id").value(veiculo1.getId()))
-                .andExpect(jsonPath("$[0].marca").value(veiculo1.getMarca()))
-                .andExpect(jsonPath("$[0].modelo").value(veiculo1.getModelo()))
-                .andExpect(jsonPath("$[0].placa").value(veiculo1.getPlaca()))
+                .andExpect(jsonPath("$[0].brand").value(veiculo1.getBrand()))
+                .andExpect(jsonPath("$[0].model").value(veiculo1.getModel()))
+                .andExpect(jsonPath("$[0].plate").value(veiculo1.getPlate()))
+                .andExpect(jsonPath("$[0].year").value(veiculo1.getYear()))
                 .andExpect(jsonPath("$[1].id").value(veiculo2.getId()))
-                .andExpect(jsonPath("$[1].marca").value(veiculo2.getMarca()))
-                .andExpect(jsonPath("$[1].modelo").value(veiculo2.getModelo()))
-                .andExpect(jsonPath("$[1].placa").value(veiculo2.getPlaca()));
+                .andExpect(jsonPath("$[1].brand").value(veiculo2.getBrand()))
+                .andExpect(jsonPath("$[1].model").value(veiculo2.getModel()))
+                .andExpect(jsonPath("$[1].plate").value(veiculo2.getPlate()))
+                .andExpect(jsonPath("$[1].year").value(veiculo2.getYear()));
 
         verify(veiculoService, times(1)).listVeiculos();
     }
@@ -64,7 +66,7 @@ class VeiculoControllerTest {
     @Test
     void shouldGetVeiculoById() {
         String id = "1";
-        Veiculo veiculo = new Veiculo("1", "Ford", "Ka", "ABC-111");
+        Veiculo veiculo = new Veiculo("1", "Ford", "Ka", "ABC-111", 2023);
 
         when(veiculoService.getVeiculoById(id)).thenReturn(veiculo);
 
@@ -77,10 +79,10 @@ class VeiculoControllerTest {
     @Test
     void shouldSaveVeiculo() {
         // Dados de entrada
-        Veiculo veiculo = new Veiculo("1", "Ford", "Ka", "ABC-111");
+        Veiculo veiculo = new Veiculo("1", "Ford", "Ka", "ABC-111", 2023);
 
         // Dados esperados
-        Veiculo novoVeiculo = new Veiculo("2", "BMW", "NãoSei", "EFG-222");
+        Veiculo novoVeiculo = new Veiculo("2", "BMW", "NãoSei", "EFG-222", 2020);
 
         // Mock do serviço
         when(veiculoService.saveVeiculo(veiculo)).thenReturn(novoVeiculo);
@@ -99,8 +101,8 @@ class VeiculoControllerTest {
     @Test
     void shouldUpdateVeiculoById() {
         String id = "1";
-        Veiculo veiculo = new Veiculo("1", "Ford", "Ka", "ABC-111");
-        Veiculo veiculoAtualizado = new Veiculo("1", "BMW", "NãoSei", "CBA-000");
+        Veiculo veiculo = new Veiculo("1", "Ford", "Ka", "ABC-111", 2022);
+        Veiculo veiculoAtualizado = new Veiculo("1", "BMW", "NãoSei", "CBA-000", 1800);
 
         when(veiculoService.updateVeiculo(id, veiculo)).thenReturn(veiculoAtualizado);
 

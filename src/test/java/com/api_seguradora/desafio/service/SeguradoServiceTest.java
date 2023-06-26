@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.api_seguradora.desafio.database.repository.SeguradoRepository;
+import com.api_seguradora.desafio.model.Endereco;
 import com.api_seguradora.desafio.model.Segurado;
 
 public class SeguradoServiceTest {
@@ -36,8 +37,11 @@ public class SeguradoServiceTest {
     @Test
     void shouldShowAllSegurados() {
         List<Segurado> segurados = new ArrayList<>();
-        segurados.add(new Segurado("1", "Huguinho", "12345678900", "9875-1111"));
-        segurados.add(new Segurado("2", "Zezinho", "98765432100", "9763-2222"));
+        List<Endereco> enderecos = new ArrayList<>();
+        enderecos.add(new Endereco("rua 1", "1", "Bairro 1", "cidade 1", "PE", "12.345-678"));
+        enderecos.add(new Endereco("rua 2", "2", "Bairro 2", "cidade 2", "SP", "98.765-431"));
+        segurados.add(new Segurado("1", "Huguinho", "12345678900", "9875-1111", enderecos.get(0)));
+        segurados.add(new Segurado("2", "Zezinho", "98765432100", "9763-2222", enderecos.get(1)));
 
         when(seguradoRepository.findAll()).thenReturn(segurados);
 
@@ -64,7 +68,8 @@ public class SeguradoServiceTest {
 
     @Test
     void shouldSaveSegurado() {
-        Segurado segurado = new Segurado("1", "Luizinho", "111.222.333-222", "9876-5432");
+        Endereco endereco = new Endereco("rua 1", "1", "bairro 1", "cidade 1", "PE", "12.345-678");
+        Segurado segurado = new Segurado("1", "Luizinho", "123.456.789-00", "9875-1111", endereco);
 
         when(seguradoRepository.save(segurado)).thenReturn(segurado);
 
@@ -77,7 +82,8 @@ public class SeguradoServiceTest {
     @Test
     void shouldUpdateSeguradoById() {
         String id = "1";
-        Segurado segurado = new Segurado("1", "Luizinho", "111.222.333-222", "9876-5432");
+        Endereco endereco = new Endereco("rua 1", "1", "bairro 1", "cidade 1", "PE", "12.345-678");
+        Segurado segurado = new Segurado("1", "Luizinho", "123.456.789-00", "9875-1111", endereco);
 
         when(seguradoRepository.existsById(id)).thenReturn(true);
         when(seguradoRepository.save(segurado)).thenReturn(segurado);
