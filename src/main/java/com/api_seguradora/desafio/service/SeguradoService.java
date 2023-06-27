@@ -46,13 +46,4 @@ public class SeguradoService {
         return false;
     }
 
-    public Segurado obterSeguradoDTO(String id) {
-        Segurado segurado = seguradoRepository.findById(id).orElse(null);
-        if (segurado != null) {
-            return new Segurado(segurado.getId(), segurado.getName(), segurado.getCpf(), segurado.getPhone(),
-                    segurado.getAddress());
-        }
-        return null;
-    }
-
 }
